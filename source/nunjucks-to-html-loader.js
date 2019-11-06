@@ -1,4 +1,3 @@
-const chardet     = require('chardet');
 const fs          = require('fs');
 const loaderUtils = require('loader-utils');
 const nunjucks    = require('nunjucks');
@@ -24,10 +23,10 @@ const njkLoader = (startPath, alias) => {
     getSource: (filePath) => {
       const completePath = resolvePath(filePath);
       const dataBuffer   = fs.readFileSync(completePath);
-      const charset      = chardet.detect(dataBuffer);
+      // const charset      = chardet.detect(dataBuffer);
 
       return {
-        src : dataBuffer.toString(charset, 0, dataBuffer.length),
+        src : dataBuffer.toString(dataBuffer, 0, dataBuffer.length),
         path : completePath
       }
     }
