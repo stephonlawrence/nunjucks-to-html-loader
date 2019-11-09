@@ -23,11 +23,10 @@ const njkLoader = (startPath, alias) => {
     getSource: (filePath) => {
       const completePath = resolvePath(filePath);
       const dataBuffer   = fs.readFileSync(completePath);
-      // const charset      = chardet.detect(dataBuffer);
 
       return {
-        src : dataBuffer.toString(dataBuffer, 0, dataBuffer.length),
-        path : completePath
+        src: dataBuffer.toString('UTF-8', 0, dataBuffer.length),
+        path: completePath
       }
     }
   }
@@ -38,7 +37,7 @@ module.exports = function loader (source) {
 
   const env      = new nunjucks.Environment(njkLoader(this.context, options.alias));
   const compiled = nunjucks.compile(source, env);
-  const rendered = compiled.render(options.context || {}).replace(/\n|\r/g,'').replace(/"/g, '\\"');
+  const rendered = compiled.render(options.context || {})
 
   return rendered;
 }
